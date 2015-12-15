@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ChatRoomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Connection">
+    <Key>
+      <PropertyRef Name="ConnectionId" />
+    </Key>
+    <Property Name="ConnectionId" Type="Int32" Nullable="false" />
+    <Property Name="UserAgent" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Connected" Type="Boolean" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Users_Connections" FromRole="Connections" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Room">
+    <Key>
+      <PropertyRef Name="roomName" />
+    </Key>
+    <Property Name="roomName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Rooms_Users" FromRole="Rooms" ToRole="Users" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_Users_Rooms" FromRole="Rooms" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="userName" />
+    </Key>
+    <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="roomName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ConnectionId" Type="Int32" />
+    <NavigationProperty Name="Connection" Relationship="Self.FK_Users_Connections" FromRole="Users" ToRole="Connections" />
+    <NavigationProperty Name="Rooms" Relationship="Self.FK_Rooms_Users" FromRole="Users" ToRole="Rooms" />
+    <NavigationProperty Name="Room" Relationship="Self.FK_Users_Rooms" FromRole="Users" ToRole="Rooms" />
+  </EntityType>
+  <Association Name="FK_Users_Connections">
+    <End Role="Connections" Type="Self.Connection" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Connections">
+        <PropertyRef Name="ConnectionId" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="ConnectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rooms_Users">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Rooms" Type="Self.Room" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="userName" />
+      </Principal>
+      <Dependent Role="Rooms">
+        <PropertyRef Name="userName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Rooms">
+    <End Role="Rooms" Type="Self.Room" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rooms">
+        <PropertyRef Name="roomName" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="roomName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ChatRoomEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Connections" EntityType="Self.Connection" />
+    <EntitySet Name="Rooms" EntityType="Self.Room" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Users_Connections" Association="Self.FK_Users_Connections">
+      <End Role="Connections" EntitySet="Connections" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rooms_Users" Association="Self.FK_Rooms_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Rooms" EntitySet="Rooms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Rooms" Association="Self.FK_Users_Rooms">
+      <End Role="Rooms" EntitySet="Rooms" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
