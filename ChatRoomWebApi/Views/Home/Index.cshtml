@@ -5,29 +5,32 @@
 	<input  name="btn" value="D" type="button" />
 </div>
 
-<div><input id="message" type="text" /></div>
+<div><label>UserName:</label><input id="username" type="text" /></div>
+<div><label>Message:</label><input id="txtmessage" type="text" /></div>
+<input type="button" id="btn" value="send"/>
+<div id="messages"></div>
+<select id="room">
+	<option value="A">A</option>
+	<option value="B">B</option>
+	<option value="C">C</option>
+</select>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
 <script src="~/SignalR/Hubs"></script>
 <script type="text/javascript">
 	var hub = $.connection.chatHub;
-	var roomName="";
-	$("input:button").click(function () {
-		roomName = $(this).val();
-	});
-	hub.client.tellGroup = function (roomName) {
-		console.log(roomName);
+	hub.client.userCount = function (count) {
+		console.log(count);
 	}
-
+	hub.client.sendMessage = function (username,message) {
+		console.log(username, message);
+	}
 	$.connection.hub.start().done(function () {
-		$("input:button").click(function () {
-			    roomName=$(this).val();
-				console.log(roomName);
-				hub.server.addToRoom(roomName);
-
-			})
-		});
+		$("#btn").click(function () {
+			hub.server.subscribe($("#username").val(), $("#txtmessage").val(), $("#room").val());
+		})
+	})
 </script>
 
 

@@ -14,19 +14,8 @@ namespace ChatRoomWebApi.Models
     
     public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.Rooms = new HashSet<Room>();
-        }
-    
-        public string userName { get; set; }
-        public string roomName { get; set; }
-        public string ConnectionId { get; set; }
-    
-        public virtual Connection Connection { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Room> Rooms { get; set; }
-        public virtual Room Room { get; set; }
+        public int Id { get; set; }
+        public string UserName { get; set; }
+        public string RoomName { get; set; }
     }
 }

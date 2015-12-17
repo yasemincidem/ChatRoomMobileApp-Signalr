@@ -12,83 +12,55 @@ namespace ChatRoomWebApi
 	{
 		private ChatRoomEntities db = new ChatRoomEntities();
 
-		public async Task TellGroup(string roomName)
+		public async Task SendMessage(string username, string message, string groupname)
 		{
-			var count = db.Users.Where(r => r.roomName == roomName).Count();
-			await Clients.Group(roomName).TellToGroup(count);
+			await Groups.Add(Context.ConnectionId, groupname);
+			Clients.Group(groupname).sendMessage(username, message);
 		}
-
-		public async Task SendMessage(string roomName, string message)
+		public async Task UserNotify(string groupname)
 		{
-			var user = db.Users.Where(r => r.roomName == roomName).FirstOrDefault();
-			await Clients.OthersInGroup(roomName).SendMessageToGroup(message);
+			var count = db.Users.Where(r => r.RoomName == groupname).Count();
+			await Clients.Group(groupname).userCount(count);
 		}
-
-		public override Task OnConnected()
+		public async Task Subscribe(string username, string message,string groupname)
 		{
-			var user = db.Users.Where(r => r.userName == Context.QueryString["UserName"]).FirstOrDefault();
-			if (user == null)
+			var user = db.Users.Where(r => r.RoomName == groupname && r.UserName==Context.ConnectionId).FirstOrDefault();
+			if (user ==null)
 			{
 				user = new User()
 				{
-					userName = Context.User.Identity.Name
+					UserName = Context.ConnectionId,
+					RoomName = groupname
 				};
 				db.Users.Add(user);
-				db.SaveChanges();
-			}
+				await db.SaveChangesAsync();
+				await Groups.Add(Context.ConnectionId, groupname);
+				await this.UserNotify(groupname);
+				await this.SendMessage(username, message, groupname);
 
+			}
 			else
 			{
-				foreach (var item in user.Rooms)
-				{
-					Groups.Add(Context.ConnectionId, item.roomName);
-				}
+				await Groups.Add(Context.ConnectionId, groupname);
+				await this.UserNotify(groupname);
+				await this.SendMessage(username, message,groupname);
 			}
+		}
+		public override Task OnConnected()
+		{
 			return base.OnConnected();
 		}
-		public async Task AddToRoom(string roomName)
-		{
-			var room = await db.Rooms.FindAsync(roomName);
-			if (room != null)
-			{
-				var user = new User()
-				{
-					ConnectionId = Context.ConnectionId,
-					userName = "yasemin",
-					roomName = roomName,
-				};
-				room.Users.Add(user);
-				await db.SaveChangesAsync();
-				await Groups.Add(Context.ConnectionId, roomName);
-				await this.TellGroup(roomName);
-			}
-		}
-		public async Task RemoveToRoom(string roomName)
-		{
-			var room = await db.Rooms.FindAsync(roomName);
-			if (room != null)
-			{
-				var user = new User()
-				{
-					ConnectionId=Context.ConnectionId,
-					userName = Context.User.Identity.Name
-				};
-				room.Users.Remove(user);
-				await db.SaveChangesAsync();
-				await Groups.Remove(Context.ConnectionId, roomName);
-				await this.TellGroup(roomName);
-			}
-		}
+
 		public override Task OnDisconnected(bool stopCalled)
 		{
-			var user = db.Users.Where(r => r.userName == Context.User.Identity.Name).FirstOrDefault();
+			var user = db.Users.Where(r => r.UserName == Context.ConnectionId).FirstOrDefault();
 			if (user != null)
 			{
 				db.Users.Remove(user);
 			}
 			return base.OnDisconnected(stopCalled);
 		}
-	
+
 
 	}
 }

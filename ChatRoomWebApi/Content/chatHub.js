@@ -1,24 +1,29 @@
-﻿function chatHub() {
-	var hub = $.connection.chatHub;
+﻿function ChatHub() {
+	this.chatHub = $.connection ? $.connection.chatHub : {};
 	var _this = this;
+	this.initHub = function () {
+		$.connection.hub
+            .start()
+            .done(function () {
+            });
+	};
 	this.addToRoom = function (roomName) {
-		$.connection.hub.start().done(function () {
-			hub.server.addToRoom(roomName);
-		})
-	}
-	this.removeToRoom = function (roomName) {
-		$.connection.hub.start().done(function () {
-			hub.server.removeToRoom(roomName);
-		})
-	}
-	this.sendMessageToGroup = function () {
-		hub.client.sendMessageToGroup = function (message) {
-			return message;
-		}
-	}
-	this.tellToGroup = function () {
-		hub.client.TellToGroup = function (data) {
-			return data;
-		}
-	}
+		$.connection.hub
+            .start()
+            .done(function () {
+            	_this.chatHub
+                    .server
+                    .addToRoom(roomName)
+                    .done(function () { });
+            });
+	};
+	this.tellToGroup = function (callback) {
+		if (!_this.isSignalREnabled)
+			return;
+		_this.chatHub
+            .client
+            .tellToGroup = function (data) {
+            	callback(data)
+            };
+	};
 }
