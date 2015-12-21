@@ -1,20 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ChatRoomModelStoreContainer" CdmEntityContainer="ChatRoomEntities">
-    <EntitySetMapping Name="Connections">
-      <EntityTypeMapping TypeName="ChatRoomModel.Connection">
-        <MappingFragment StoreEntitySet="Connections">
-          <ScalarProperty Name="ConnectionId" ColumnName="ConnectionId" />
-          <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
-          <ScalarProperty Name="Connected" ColumnName="Connected" />
+    <EntitySetMapping Name="Logins">
+      <EntityTypeMapping TypeName="ChatRoomModel.Login">
+        <MappingFragment StoreEntitySet="Logins">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="username" ColumnName="username" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Rooms">
       <EntityTypeMapping TypeName="ChatRoomModel.Room">
         <MappingFragment StoreEntitySet="Rooms">
-          <ScalarProperty Name="roomName" ColumnName="roomName" />
-          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="RoomName" ColumnName="RoomName" />
+          <ScalarProperty Name="RoomDetail" ColumnName="RoomDetail" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -32,9 +31,9 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="ChatRoomModel.User">
         <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="userName" ColumnName="userName" />
-          <ScalarProperty Name="roomName" ColumnName="roomName" />
-          <ScalarProperty Name="ConnectionId" ColumnName="ConnectionId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="RoomName" ColumnName="RoomName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

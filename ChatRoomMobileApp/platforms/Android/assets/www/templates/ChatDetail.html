@@ -1,0 +1,14 @@
+﻿
+<ion-view title={{room}}>
+	<ion-nav-buttons side="primary">
+		<button class="button button-icon ion-power" ng-click="logout()"></button>
+	</ion-nav-buttons>
+	<ion-content>
+		<div class="list" style="margin-top:70px;">
+			{{room}}
+		</div>
+		<div class="form-group" >
+			<input type="text" placeholder="Send Message" ng-model="message"/>
+		</div>
+	</ion-content>
+</ion-view>

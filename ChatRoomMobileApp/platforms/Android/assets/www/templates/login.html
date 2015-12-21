@@ -1,0 +1,14 @@
+﻿<ion-view title="Login">
+	<ion-content>
+		<div class="row row-center" style="height:700px">
+			<div class="col col-center" style="border: 1px solid green; text-align:center;">
+				<div class="form-group">
+					<input type="text" placeholder="Username" ng-model="user.username">
+				</div>
+			</div>
+			<a class="button button-royal" ng-disabled="!user.username" ng-click="AddUser()" ng-href="#/chat">
+				<i class="ion-arrow-right-c"></i>
+			</a>
+		</div>
+	</ion-content>
+</ion-view>

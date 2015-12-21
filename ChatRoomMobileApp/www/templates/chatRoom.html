@@ -1,0 +1,12 @@
+﻿<ion-view name="Login">
+	<ion-content>
+		<div class="list" style="margin-top:70px;">
+			<a ng-repeat="item in items"
+			   class="item item-thumbnail-left" ng-click="LoginRoom($index)">
+				<img ng-src="~/ionic.png">
+				<h2 style="font-size:large;color:blueviolet;">{{ item.RoomName }}</h2>
+				<h4 style="font-size:large;color:darkmagenta;">{{ item.RoomDetail }}</h4>
+			</a>
+		</div>
+	</ion-content>
+</ion-view>

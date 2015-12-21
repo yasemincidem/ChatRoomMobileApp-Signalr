@@ -23,12 +23,20 @@
 	hub.client.userCount = function (count) {
 		console.log(count);
 	}
-	hub.client.sendMessage = function (username,message) {
+	hub.client.sendMessage = function (username, message, groupname) {
 		console.log(username, message);
+		$("#messages").append('<li><strong>' + username + '</strong>: ' + message + '</li>');
 	}
+	var str = $("select").val();
+	$("select").change(function () {
+		$("select option:selected").each(function () {
+			str += $(this).text() + " ";
+		});
+	})
 	$.connection.hub.start().done(function () {
+	
 		$("#btn").click(function () {
-			hub.server.subscribe($("#username").val(), $("#txtmessage").val(), $("#room").val());
+			hub.server.subscribe($("#username").val(), $("#txtmessage").val(), str);
 		})
 	})
 </script>

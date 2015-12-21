@@ -17,5 +17,7 @@ namespace ChatRoomWebApi.Models
         public int Id { get; set; }
         public string UserName { get; set; }
         public string RoomName { get; set; }
+    
+        public virtual Room Room { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace ChatRoomWebApi
 		public async Task SendMessage(string username, string message, string groupname)
 		{
 			await Groups.Add(Context.ConnectionId, groupname);
-			Clients.Group(groupname).sendMessage(username, message);
+			Clients.Group(groupname).sendMessage(username, message,groupname);
 		}
 		public async Task UserNotify(string groupname)
 		{

@@ -79,3 +79,6 @@ C:\Users\yasemin\Desktop\Development\ChatRoomApp\ChatRoomWebApi\bin\System.Web.H
 C:\Users\yasemin\Desktop\Development\ChatRoomApp\ChatRoomWebApi\obj\Debug\ChatRoomWebApi.csprojResolveAssemblyReference.cache
 C:\Users\yasemin\Desktop\Development\ChatRoomApp\ChatRoomWebApi\obj\Debug\ChatRoomWebApi.dll
 C:\Users\yasemin\Desktop\Development\ChatRoomApp\ChatRoomWebApi\obj\Debug\ChatRoomWebApi.pdb
+C:\Users\yasemin\Desktop\Development\ChatRoomApp\ChatRoomWebApi\bin\System.Web.Cors.dll
+C:\Users\yasemin\Desktop\Development\ChatRoomApp\ChatRoomWebApi\bin\System.Web.Http.Cors.dll
+C:\Users\yasemin\Desktop\Development\ChatRoomApp\ChatRoomWebApi\bin\System.Web.Http.Cors.xml

@@ -61,11 +61,19 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.3\lib\net45\System.Web.Http.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -223,24 +231,33 @@
     </Compile>
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\chatRoom.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>chatRoom.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\chatRoom.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>chatRoom.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\chatRoom.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>chatRoom.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Login.cs">
+      <DependentUpon>chatRoom.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Room.cs">
+      <DependentUpon>chatRoom.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>chatRoom.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.cs">
-      <DependentUpon>Users.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Users.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Users.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Users.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Users.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Users.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Users.edmx</DependentUpon>
+      <DependentUpon>chatRoom.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
@@ -255,15 +272,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\Users.Context.tt">
+    <Content Include="Models\chatRoom.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Users.edmx</DependentUpon>
-      <LastGenOutput>Users.Context.cs</LastGenOutput>
+      <DependentUpon>chatRoom.edmx</DependentUpon>
+      <LastGenOutput>chatRoom.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\Users.tt">
+    <Content Include="Models\chatRoom.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Users.edmx</DependentUpon>
-      <LastGenOutput>Users.cs</LastGenOutput>
+      <DependentUpon>chatRoom.edmx</DependentUpon>
+      <LastGenOutput>chatRoom.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -286,12 +303,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\Users.edmx">
+    <EntityDeploy Include="Models\chatRoom.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Users.Designer.cs</LastGenOutput>
+      <LastGenOutput>chatRoom.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Users.edmx.diagram">
-      <DependentUpon>Users.edmx</DependentUpon>
+    <Content Include="Models\chatRoom.edmx.diagram">
+      <DependentUpon>chatRoom.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
